@@ -44,6 +44,23 @@ class Matrix:
                     self.Bomby2=Man(l,c)
                     return
 
+    def Bomby1Up(self):
+        print "Bomby1Up"
+    def Bomby1Left(self):
+        print "Bomby1Left"
+    def Bomby1Down(self):
+        print "Bomby1Down"
+    def Bomby1Right(self):
+        print "Bomby1Right"
+    def Bomby2Up(self):
+        print "Bomby2Up"
+    def Bomby2Left(self):
+        print "Bomby2Left"
+    def Bomby2Down(self):
+        print "Bomby2Down"
+    def Bomby2Right(self):
+        print "Bomby2Right"
+
 if __name__ == "__main__":
     M1=Matrix()
     print 'initialisation'
