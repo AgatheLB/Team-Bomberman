@@ -34,6 +34,7 @@ class Matrix:
                 if self.grid[l][c]==constantes.CONST_VideValue :
                     self.grid[l][c]=constantes.CONST_Perso1
                     self.Bomby1=Man(l,c)
+                    self.Bomby1.SetImages("BombyB.gif","BombyBackB.gif","BombyRightB.gif","BombyLeftB.gif")
                     return
 
     def CreateRandomPosition2(self):
@@ -42,24 +43,30 @@ class Matrix:
                 if self.grid[l][c]==constantes.CONST_VideValue :
                     self.grid[l][c]=constantes.CONST_Perso2
                     self.Bomby2=Man(l,c)
+                    self.Bomby2.SetImages("BombyB.gif","BombyBackB.gif","BombyRightB.gif","BombyLeftB.gif")
                     return
 
     def Bomby1Up(self):
-        print "Bomby1Up"
+        if self.grid[self.Bomby1.ligne-1][self.Bomby1.colonne]==0:
+            self.Bomby1.SetPosition(self.Bomby1.ligne-1,self.Bomby1.colonne)
+        else :
+            print "Bomby1 ne peut pas se déplacer(monter)"
     def Bomby1Left(self):
-        print "Bomby1Left"
+        self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne-1)
     def Bomby1Down(self):
-        print "Bomby1Down"
+        self.Bomby1.SetPosition(self.Bomby1.ligne+1,self.Bomby1.colonne)
     def Bomby1Right(self):
-        print "Bomby1Right"
+        self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne+1)
     def Bomby2Up(self):
-        print "Bomby2Up"
+        self.Bomby2.SetPosition(self.Bomby2.ligne-1,self.Bomby2.colonne)
     def Bomby2Left(self):
-        print "Bomby2Left"
+        self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne-1)
     def Bomby2Down(self):
-        print "Bomby2Down"
+        self.Bomby2.SetPosition(self.Bomby2.ligne+1,self.Bomby2.colonne)
     def Bomby2Right(self):
-        print "Bomby2Right"
+        self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne+1)
+#    def Bomby1SetBombe(self):
+#    def Bomby2SetBombe(self):
 
 if __name__ == "__main__":
     M1=Matrix()

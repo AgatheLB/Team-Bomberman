@@ -1,5 +1,6 @@
 ﻿from Tkinter import*
 from Matrix import*
+from Man import*
 
 class GameWindow:
     def __init__(self):
@@ -16,15 +17,16 @@ class GameWindow:
         self.window.bind("<KeyPress-q>",self.Bomby1Left)
         self.window.bind("<KeyPress-s>",self.Bomby1Down)
         self.window.bind("<KeyPress-d>",self.Bomby1Right)
+#        self.window.bind("<KeyPress-r>",self.Bomby1SetBombe)
         self.window.bind("<KeyPress-Up>",self.Bomby2Up)
         self.window.bind("<KeyPress-Left>",self.Bomby2Left)
         self.window.bind("<KeyPress-Down>",self.Bomby2Down)
         self.window.bind("<KeyPress-Right>",self.Bomby2Right)
+#        self.window.bind("<KeyPress-0>",self.Bomby2SetBombe)
         self.window.bind("<KeyPress-Escape>",self.Quitter)
         self.window.bind("<KeyPress-F5>",self.Reinitialiser)
 
     def Bomby1Up(self,event):
-        print "Bomby1Up.window"
         self.matrix.Bomby1Up()
     def Bomby1Left(self,event):
         self.matrix.Bomby1Left()
@@ -40,6 +42,9 @@ class GameWindow:
         self.matrix.Bomby2Down()
     def Bomby2Right(self,event):
         self.matrix.Bomby2Right()
+
+#    def Bomby1SetBombe(self):
+#    def Bomby2SelBombe(self):
 
     def Quitter(self,event):
         print "Quitter"

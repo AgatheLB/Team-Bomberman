@@ -4,9 +4,8 @@ import tkFont
 def Quitter():
     fenetre.destroy()
 def Jouer():
-    fenetre2=Tk()
-    fenetre2.title("jeu")
-    fenetre2.geometry("960x768")
+    Gamewindow
+
     fenetre2.mainloop()
     fenetre.destroy()
 
