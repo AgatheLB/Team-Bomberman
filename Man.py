@@ -23,7 +23,7 @@ if __name__ == "__main__":
     print M1.ligne
     print M1.colonne
     fenetre=Tk()
-    M1.SetImages("BombyB.gif","BombyBackB.gif","BombyRightB.gif","BombyLeftB.gif")
+    M1.SetImages(os.getcwd()+"\Images\BombyB.gif",os.getcwd()+"\Images\BombyBackB.gif",os.getcwd()+"\Images\BombyRightB.gif",os.getcwd()+"\Images\BombyLeftB.gif")
     print M1.ImageUp
     print M1.ImageDown
     print M1.ImageRight

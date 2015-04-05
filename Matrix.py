@@ -2,6 +2,8 @@
 import random
 import constantes
 from Man import*
+from Tkinter import*
+import os
 
 class Matrix:
     def __init__(self):
@@ -34,7 +36,7 @@ class Matrix:
                 if self.grid[l][c]==constantes.CONST_VideValue :
                     self.grid[l][c]=constantes.CONST_Perso1
                     self.Bomby1=Man(l,c)
-                    self.Bomby1.SetImages("BombyB.gif","BombyBackB.gif","BombyRightB.gif","BombyLeftB.gif")
+                    self.Bomby1.SetImages(os.getcwd()+"\Images\BombyB.gif",os.getcwd()+"\Images\BombyBackB.gif",os.getcwd()+"\Images\BombyRightB.gif",os.getcwd()+"\Images\BombyLeftB.gif")
                     return
 
     def CreateRandomPosition2(self):
@@ -43,7 +45,7 @@ class Matrix:
                 if self.grid[l][c]==constantes.CONST_VideValue :
                     self.grid[l][c]=constantes.CONST_Perso2
                     self.Bomby2=Man(l,c)
-                    self.Bomby2.SetImages("BombyB.gif","BombyBackB.gif","BombyRightB.gif","BombyLeftB.gif")
+                    self.Bomby2.SetImages(os.getcwd()+"\Images\BombyB.gif",os.getcwd()+"\Images\BombyBackB.gif",os.getcwd()+"\Images\BombyRightB.gif",os.getcwd()+"\Images\BombyLeftB.gif")
                     return
 
     def Bomby1Up(self):
@@ -69,6 +71,7 @@ class Matrix:
 #    def Bomby2SetBombe(self):
 
 if __name__ == "__main__":
+    root=Tk()
     M1=Matrix()
     print 'initialisation'
     print M1.grid
@@ -82,3 +85,6 @@ if __name__ == "__main__":
     M1.CreateRandomPosition1()
     M1.CreateRandomPosition2()
     print M1.grid
+    print (__file__)
+    print os.path.join(os.getcwd(),__file__)
+    print os.getcwd()

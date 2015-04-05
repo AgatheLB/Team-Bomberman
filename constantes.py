@@ -2,7 +2,7 @@
 CONST_NbLignes=10+2
 CONST_NbColonnes=10+2
 CONST_NbBlocsParLigne=3
-
+CONST_ImageSizeInPixels=50
 
 #Valeurs du contenu des cases
 CONST_VideValue=0
