@@ -1,6 +1,7 @@
 ﻿from Tkinter import*
 from Matrix import*
 from Man import*
+# -*- coding: utf-8 -*-
 from constantes import*
 import os
 
@@ -8,8 +9,8 @@ class GameWindow:
     def __init__(self):
         self.window=Tk()
         self.window.title("jeu")
-        self.window.geometry("960x768")
-        self.ImageWindow=Canvas(self.window)
+        self.window.geometry("800x600")
+        self.ImageWindow=Canvas(self.window,width=600, height=600)
         self.ImageWindow.place(x=0,y=0)
         self.ImageWindow.pack()
 
@@ -40,22 +41,34 @@ class GameWindow:
         self.window.bind("<KeyPress-Escape>",self.Quitter)
         self.window.bind("<KeyPress-F5>",self.Reinitialiser)
 
+        reinitialiser=Button(self.window, text="REINITIALISER",width=20,command=self.Reinitialiser)
+        reinitialiser.place(x=650,y=0)
+
+
     def Bomby1Up(self,event):
         self.matrix.Bomby1Up()
+        self.PrintImages()
     def Bomby1Left(self,event):
         self.matrix.Bomby1Left()
+        self.PrintImages()
     def Bomby1Down(self,event):
         self.matrix.Bomby1Down()
+        self.PrintImages()
     def Bomby1Right(self,event):
         self.matrix.Bomby1Right()
+        self.PrintImages()
     def Bomby2Up(self,event):
         self.matrix.Bomby2Up()
+        self.PrintImages()
     def Bomby2Left(self,event):
         self.matrix.Bomby2Left()
+        self.PrintImages()
     def Bomby2Down(self,event):
         self.matrix.Bomby2Down()
+        self.PrintImages()
     def Bomby2Right(self,event):
         self.matrix.Bomby2Right()
+        self.PrintImages()
 #    def Bomby1SetBombe(self):
 #    def Bomby2SelBombe(self):
 
@@ -63,32 +76,21 @@ class GameWindow:
         for l in range(CONST_NbLignes) :
             for c in range (CONST_NbColonnes):
                 case = self.matrix.grid[l][c]
-                print case
                 if case == 9 :
                     pos=self.CalculPositionCase(l,c)
-                    print pos
-                    print self.Bomby2
-                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseX(l),image=self.Bomby2,anchor="nw")
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby2,anchor="nw")
                 if case == 8 :
                     pos=self.CalculPositionCase(l,c)
-                    print pos
-                    print self.Bomby1
-                    self.ImageWindow.create_image(self.CalculPositionCase(l,c),self.Bomby1,anchor="nw")
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby1,anchor="nw")
                 if case == 6 :
                     pos=self.CalculPositionCase(l,c)
-                    print pos
-                    print self.Bombe
-                    self.ImageWindow.create_image(self.CalculPositionCase(l,c),self.Bombe,anchor="nw")
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bombe,anchor="nw")
                 if case == 1 :
                     pos=self.CalculPositionCase(l,c)
-                    print pos
-                    print self.Bloc
-                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseX(l),image=self.Bloc,anchor="nw")
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bloc,anchor="nw")
                 if case == 0 :
                     pos=self.CalculPositionCase(l,c)
-                    print pos
-                    print self.Vide
-                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseX(l),image=self.Vide,anchor="nw")
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Vide,anchor="nw")
 
     def CalculPositionCase(self,ligne,colonne):
         x=colonne*CONST_ImageSizeInPixels
@@ -107,8 +109,10 @@ class GameWindow:
     def Quitter(self,event):
         print "Quitter"
 
-    def Reinitialiser(self,event):
-        print "Reinitialiser"
+    def Reinitialiser(self):
+        self.matrix.CreateRandomMatrice()
+        self.matrix.CreateRandomPosition1()
+        self.matrix.CreateRandomPosition2()
 
     def Mainloop(self):
         self.window.mainloop()

@@ -1,9 +1,11 @@
-﻿import pygame
+﻿# -*- coding: utf-8 -*-
+import pygame
 import random
 import constantes
 from Man import*
 from Tkinter import*
 import os
+
 
 class Matrix:
     def __init__(self):
@@ -52,21 +54,43 @@ class Matrix:
         if self.grid[self.Bomby1.ligne-1][self.Bomby1.colonne]==0:
             self.Bomby1.SetPosition(self.Bomby1.ligne-1,self.Bomby1.colonne)
         else :
-            print "Bomby1 ne peut pas se déplacer(monter)"
+            print "Bomby1 ne peut pas se deplacer(monter)"
     def Bomby1Left(self):
-        self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne-1)
+        if self.grid[self.Bomby1.ligne][self.Bomby1.colonne-1]==0:
+            self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne-1)
+        else :
+            print "Bomby1 ne peut pas se deplacer(gauche)"
     def Bomby1Down(self):
-        self.Bomby1.SetPosition(self.Bomby1.ligne+1,self.Bomby1.colonne)
+        if self.grid[self.Bomby1.ligne+1][self.Bomby1.colonne]==0:
+            self.Bomby1.SetPosition(self.Bomby1.ligne+1,self.Bomby1.colonne)
+        else :
+            print "Bomby1 ne peut pas se deplacer(descendre)"
     def Bomby1Right(self):
-        self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne+1)
+        if self.grid[self.Bomby1.ligne][self.Bomby1.colonne+1]==0:
+            self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne+1)
+        else :
+            print "Bomby1 ne peut pas se deplacer(droit)"
     def Bomby2Up(self):
-        self.Bomby2.SetPosition(self.Bomby2.ligne-1,self.Bomby2.colonne)
+        if self.grid[self.Bomby2.ligne-1][self.Bomby2.colonne]==0:
+            self.Bomby2.SetPosition(self.Bomby2.ligne-1,self.Bomby2.colonne)
+        else :
+            print "Bomby2 ne peut pas se deplacer(monter)"
     def Bomby2Left(self):
-        self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne-1)
+        if self.grid[self.Bomby2.ligne][self.Bomby2.colonne-1]==0:
+            self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne-1)
+        else :
+            print "Bomby2 ne peut pas se deplacer(gauche)"
     def Bomby2Down(self):
-        self.Bomby2.SetPosition(self.Bomby2.ligne+1,self.Bomby2.colonne)
+        if self.grid[self.Bomby2.ligne+1][self.Bomby2.colonne]==0:
+            self.Bomby2.SetPosition(self.Bomby2.ligne+1,self.Bomby2.colonne)
+        else :
+            print "Bomby2 ne peut pas se deplacer(descendre)"
     def Bomby2Right(self):
-        self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne+1)
+        if self.grid[self.Bomby2.ligne][self.Bomby2.colonne+1]==0:
+            self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne+1)
+        else :
+            print "Bomby2 ne peut pas se deplacer(droite)"
+
 #    def Bomby1SetBombe(self):
 #    def Bomby2SetBombe(self):
 
