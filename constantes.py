@@ -9,3 +9,9 @@ CONST_VideValue=0
 CONST_Bloc=1
 CONST_Perso1=8
 CONST_Perso2=9
+
+#Valeurs du sens du personnage
+CONST_Haut=10
+CONST_Bas=11
+CONST_Droit=12
+CONST_Gauche=13

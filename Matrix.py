@@ -37,7 +37,7 @@ class Matrix:
             for l in range (constantes.CONST_NbLignes):
                 if self.grid[l][c]==constantes.CONST_VideValue :
                     self.grid[l][c]=constantes.CONST_Perso1
-                    self.Bomby1=Man(l,c)
+                    self.Bomby1=Man(l,c,constantes.CONST_Bas)
                     self.Bomby1.SetImages(os.getcwd()+"\Images\BombyB.gif",os.getcwd()+"\Images\BombyBackB.gif",os.getcwd()+"\Images\BombyRightB.gif",os.getcwd()+"\Images\BombyLeftB.gif")
                     return
 
@@ -46,8 +46,8 @@ class Matrix:
             for l in range (constantes.CONST_NbLignes-1,0,-1):
                 if self.grid[l][c]==constantes.CONST_VideValue :
                     self.grid[l][c]=constantes.CONST_Perso2
-                    self.Bomby2=Man(l,c)
-                    self.Bomby2.SetImages(os.getcwd()+"\Images\BombyB.gif",os.getcwd()+"\Images\BombyBackB.gif",os.getcwd()+"\Images\BombyRightB.gif",os.getcwd()+"\Images\BombyLeftB.gif")
+                    self.Bomby2=Man(l,c,constantes.CONST_Bas)
+                    self.Bomby2.SetImages(os.getcwd()+"\Images\BombyR.gif",os.getcwd()+"\Images\BombyBackR.gif",os.getcwd()+"\Images\BombyRightR.gif",os.getcwd()+"\Images\BombyLeftR.gif")
                     return
 
     def Bomby1Up(self):
@@ -90,9 +90,10 @@ class Matrix:
             self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne+1)
         else :
             print "Bomby2 ne peut pas se deplacer(droite)"
-
-#    def Bomby1SetBombe(self):
-#    def Bomby2SetBombe(self):
+    def Bomby1SetBombe(self):
+        self.Bomby1.SetBombe()
+    def Bomby2SetBombe (self):
+        self.Bomby2.SetBombe()
 
 if __name__ == "__main__":
     root=Tk()
