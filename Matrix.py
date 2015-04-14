@@ -50,6 +50,12 @@ class Matrix:
                     self.Bomby2.SetImages(os.getcwd()+"\Images\BombyR.gif",os.getcwd()+"\Images\BombyBackR.gif",os.getcwd()+"\Images\BombyRightR.gif",os.getcwd()+"\Images\BombyLeftR.gif")
                     return
 
+    def Reinitialisation(self):
+       self.grid=self.CreateMatrice(constantes.CONST_NbLignes,constantes.CONST_NbColonnes)
+       self.CreateRandomMatrice()
+       self.CreateRandomPosition1()
+       self.CreateRandomPosition2()
+
     def Bomby1Up(self):
         if self.grid[self.Bomby1.ligne-1][self.Bomby1.colonne]==0:
             self.Bomby1.SetPosition(self.Bomby1.ligne-1,self.Bomby1.colonne)
@@ -94,6 +100,8 @@ class Matrix:
         self.Bomby1.SetBombe()
     def Bomby2SetBombe (self):
         self.Bomby2.SetBombe()
+
+
 
 if __name__ == "__main__":
     root=Tk()

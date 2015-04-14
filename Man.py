@@ -20,25 +20,25 @@ class Man(MatrixObjects):
         if self.sens==constantes.CONST_Gauche:
 #            if self.grid[self.ligne][self.colonne-1]==0:
 #                Bombe.SetPosition(self.ligne,self.colonne-1)
-            print "to do lol"
+            print "to do"
 
 
         if self.sens==constantes.CONST_Bas:
 #            if self.grid[self.ligne+1][self.colonne]==0:
 #                Bombe.SetPosition(self.ligne+1,self.colonne)
-            print "to do lol"
+            print "to do"
 
 
         if self.sens==constantes.CONST_Droit:
 #            if self.grid[self.ligne][self.Bomby1.colonne+1]==0:
 #                Bombe.SetPosition(self.ligne,self.colonne+1)
-            print "to do lol"
+            print "to do"
 
 
         if self.sens==constantes.CONST_Haut:
 #            if self.grid[self.ligne-1][self.colonne]==0:
 #                Bombe.SetPosition(self.ligne-1,self.colonne)
-            print "to do lol"
+            print "to do"
 
 
 
