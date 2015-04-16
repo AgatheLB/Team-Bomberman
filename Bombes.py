@@ -1,6 +1,6 @@
 ﻿import pygame
-import Matrix 
-import Man 
+import Matrix
+import Man
 import MatrixObjects
 
 

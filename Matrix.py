@@ -36,7 +36,7 @@ class Matrix:
         for c in range(constantes.CONST_NbColonnes):
             for l in range (constantes.CONST_NbLignes):
                 if self.grid[l][c]==constantes.CONST_VideValue :
-                    self.grid[l][c]=constantes.CONST_Perso1
+#                    self.grid[l][c]=constantes.CONST_Perso1
                     self.Bomby1=Man(l,c,constantes.CONST_Bas)
                     self.Bomby1.SetImages(os.getcwd()+"\Images\BombyB.gif",os.getcwd()+"\Images\BombyBackB.gif",os.getcwd()+"\Images\BombyRightB.gif",os.getcwd()+"\Images\BombyLeftB.gif")
                     return
@@ -45,55 +45,80 @@ class Matrix:
         for c in range(constantes.CONST_NbColonnes-1,0,-1):
             for l in range (constantes.CONST_NbLignes-1,0,-1):
                 if self.grid[l][c]==constantes.CONST_VideValue :
-                    self.grid[l][c]=constantes.CONST_Perso2
+#                    self.grid[l][c]=constantes.CONST_Perso2
                     self.Bomby2=Man(l,c,constantes.CONST_Bas)
                     self.Bomby2.SetImages(os.getcwd()+"\Images\BombyR.gif",os.getcwd()+"\Images\BombyBackR.gif",os.getcwd()+"\Images\BombyRightR.gif",os.getcwd()+"\Images\BombyLeftR.gif")
                     return
 
+    def Reinitialisation(self):
+       self.grid=self.CreateMatrice(constantes.CONST_NbLignes,constantes.CONST_NbColonnes)
+       self.CreateRandomMatrice()
+       self.CreateRandomPosition1()
+       self.CreateRandomPosition2()
+
+    def IsEmptyCase (self,ligne,colonne):
+        if self.grid[ligne][colonne]==0 :
+            posBomby1=self.Bomby1.GetPosition()
+            posBomby2=self.Bomby2.GetPosition()
+            if posBomby1[0]!=ligne or posBomby1[1]!=colonne:
+                if posBomby2[0]!=ligne or posBomby2[1]!=colonne:
+                    return True
+        return False
+
     def Bomby1Up(self):
-        if self.grid[self.Bomby1.ligne-1][self.Bomby1.colonne]==0:
+        if self.IsEmptyCase(self.Bomby1.ligne-1,self.Bomby1.colonne):
             self.Bomby1.SetPosition(self.Bomby1.ligne-1,self.Bomby1.colonne)
+            self.Bomby1.sens=CONST_Haut
         else :
             print "Bomby1 ne peut pas se deplacer(monter)"
     def Bomby1Left(self):
-        if self.grid[self.Bomby1.ligne][self.Bomby1.colonne-1]==0:
+        if self.IsEmptyCase(self.Bomby1.ligne,self.Bomby1.colonne-1):
             self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne-1)
+            self.Bomby1.sens=CONST_Gauche
         else :
             print "Bomby1 ne peut pas se deplacer(gauche)"
     def Bomby1Down(self):
-        if self.grid[self.Bomby1.ligne+1][self.Bomby1.colonne]==0:
+        if self.IsEmptyCase(self.Bomby1.ligne+1,self.Bomby1.colonne):
             self.Bomby1.SetPosition(self.Bomby1.ligne+1,self.Bomby1.colonne)
+            self.Bomby1.sens=CONST_Bas
         else :
             print "Bomby1 ne peut pas se deplacer(descendre)"
     def Bomby1Right(self):
-        if self.grid[self.Bomby1.ligne][self.Bomby1.colonne+1]==0:
+        if self.IsEmptyCase(self.Bomby1.ligne,self.Bomby1.colonne+1):
             self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne+1)
+            self.Bomby1.sens=CONST_Droit
         else :
             print "Bomby1 ne peut pas se deplacer(droit)"
     def Bomby2Up(self):
-        if self.grid[self.Bomby2.ligne-1][self.Bomby2.colonne]==0:
+        if self.IsEmptyCase(self.Bomby2.ligne-1,self.Bomby2.colonne):
             self.Bomby2.SetPosition(self.Bomby2.ligne-1,self.Bomby2.colonne)
+            self.Bomby2.sens=CONST_Haut
         else :
             print "Bomby2 ne peut pas se deplacer(monter)"
     def Bomby2Left(self):
-        if self.grid[self.Bomby2.ligne][self.Bomby2.colonne-1]==0:
+        if self.IsEmptyCase(self.Bomby2.ligne,self.Bomby2.colonne-1):
             self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne-1)
+            self.Bomby2.sens=CONST_Gauche
         else :
             print "Bomby2 ne peut pas se deplacer(gauche)"
     def Bomby2Down(self):
-        if self.grid[self.Bomby2.ligne+1][self.Bomby2.colonne]==0:
+        if self.IsEmptyCase(self.Bomby2.ligne+1,self.Bomby2.colonne):
             self.Bomby2.SetPosition(self.Bomby2.ligne+1,self.Bomby2.colonne)
+            self.Bomby2.sens=CONST_Bas
         else :
             print "Bomby2 ne peut pas se deplacer(descendre)"
     def Bomby2Right(self):
-        if self.grid[self.Bomby2.ligne][self.Bomby2.colonne+1]==0:
+        if self.IsEmptyCase(self.Bomby2.ligne,self.Bomby2.colonne+1):
             self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne+1)
+            self.Bomby2.sens=CONST_Droit
         else :
             print "Bomby2 ne peut pas se deplacer(droite)"
     def Bomby1SetBombe(self):
         self.Bomby1.SetBombe()
     def Bomby2SetBombe (self):
         self.Bomby2.SetBombe()
+
+
 
 if __name__ == "__main__":
     root=Tk()
