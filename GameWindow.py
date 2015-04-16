@@ -22,6 +22,7 @@ class GameWindow:
         self.matrix.CreateRandomPosition2()
 
 
+<<<<<<< HEAD
         self.ImageBloc = PhotoImage(file=os.getcwd()+"\Images\Wall.gif")
         self.ImageVide = PhotoImage(file=os.getcwd()+"\Images\Vide.gif")
         self.ImageBomby1=PhotoImage(file=os.getcwd()+"\Images\BombyB.gif")
@@ -33,6 +34,19 @@ class GameWindow:
         self.ImageBomby2Right=PhotoImage(file=os.getcwd()+"\Images\BombyRightR.gif")
         self.ImageBomby2Back=PhotoImage(file=os.getcwd()+"\Images\BombyBackR.gif")
         self.ImageBombe=PhotoImage(file=os.getcwd()+"\Images\Bombe.gif")
+=======
+        self.Bloc = PhotoImage(file=os.getcwd()+"\Images\Wall.gif")
+        self.Vide = PhotoImage(file=os.getcwd()+"\Images\Vide.gif")
+        self.Bomby1=PhotoImage(file=os.getcwd()+"\Images\BombyB.gif")
+        self.Bomby1Left=PhotoImage(file=os.getcwd()+"\Images\BombyLeftB.gif")
+        self.Bomby1Right=PhotoImage(file=os.getcwd()+"\Images\BombyRightB.gif")
+        self.Bomby1Back=PhotoImage(file=os.getcwd()+"\Images\BombyBackB.gif")
+        self.Bomby2=PhotoImage(file=os.getcwd()+"\Images\BombyR.gif")
+        self.Bomby2Left=PhotoImage(file=os.getcwd()+"\Images\BombyLeftR.gif")
+        self.Bomby2Right=PhotoImage(file=os.getcwd()+"\Images\BombyRightR.gif")
+        self.Bomby2Back=PhotoImage(file=os.getcwd()+"\Images\BombyBackR.gif")
+        self.Bombe=PhotoImage(file=os.getcwd()+"\Images\Bombe.gif")
+>>>>>>> f02645231198301c2d1bedbd3f2c23afcb9887a8
 
 
         self.window.bind("<KeyPress-z>",self.Bomby1Up)
@@ -63,8 +77,10 @@ class GameWindow:
         self.matrix.Bomby1Up()
         self.PrintImages()
     def Bomby1Left(self,event):
+        print "enter Bomby1Left"
         self.matrix.Bomby1Left()
         self.PrintImages()
+        print "going out Bomby1Left"
     def Bomby1Down(self,event):
         self.matrix.Bomby1Down()
         self.PrintImages()
@@ -96,6 +112,7 @@ class GameWindow:
         for l in range(CONST_NbLignes) :
             for c in range (CONST_NbColonnes):
                 case = self.matrix.grid[l][c]
+<<<<<<< HEAD
                 if case == 6 :
                     self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageBombe,anchor="nw")
                 if case == 1 :
@@ -123,6 +140,33 @@ class GameWindow:
             self.ImageWindow.create_image(self.CalculPositionCaseX(posBomby2[1]),self.CalculPositionCaseY(posBomby2[0]),image=self.ImageBomby2Right,anchor="nw")
         if self.matrix.Bomby2.sens==CONST_Gauche:
             self.ImageWindow.create_image(self.CalculPositionCaseX(posBomby2[1]),self.CalculPositionCaseY(posBomby2[0]),image=self.ImageBomby2Left,anchor="nw")
+=======
+                if case == 8 :
+                    if self.matrix.Bomby1.sens==CONST_Bas:
+                        self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby1,anchor="nw")
+                    if self.matrix.Bomby1.sens==CONST_Haut:
+                        self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby1Back,anchor="nw")
+                    if self.matrix.Bomby1.sens==CONST_Droit:
+                        self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby1Right,anchor="nw")
+                    if self.matrix.Bomby1.sens==CONST_Gauche:
+                        self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby1Left,anchor="nw")
+                if case == 9 :
+                    if self.matrix.Bomby2.sens==CONST_Bas:
+                        self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby2,anchor="nw")
+                    if self.matrix.Bomby2.sens==CONST_Haut:
+                        self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby2Back,anchor="nw")
+                    if self.matrix.Bomby2.sens==CONST_Droit:
+                        self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby2Right,anchor="nw")
+                    if self.matrix.Bomby2.sens==CONST_Gauche:
+                        self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bomby2Left,anchor="nw")
+                if case == 6 :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bombe,anchor="nw")
+                if case == 1 :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Bloc,anchor="nw")
+                if case == 0 :
+#                    pos=self.CalculPositionCase(l,c)
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.Vide,anchor="nw")
+>>>>>>> f02645231198301c2d1bedbd3f2c23afcb9887a8
 
     def CalculPositionCase(self,ligne,colonne):
         x=colonne*CONST_ImageSizeInPixels
