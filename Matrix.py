@@ -56,7 +56,7 @@ class Matrix:
        self.CreateRandomPosition1()
        self.CreateRandomPosition2()
 
-<<<<<<< HEAD
+
     def IsEmptyCase (self,ligne,colonne):
         if self.grid[ligne][colonne]==0 :
             posBomby1=self.Bomby1.GetPosition()
@@ -66,8 +66,7 @@ class Matrix:
                     return True
         return False
 
-=======
->>>>>>> f02645231198301c2d1bedbd3f2c23afcb9887a8
+
     def Bomby1Up(self):
         if self.IsEmptyCase(self.Bomby1.ligne-1,self.Bomby1.colonne):
             self.Bomby1.SetPosition(self.Bomby1.ligne-1,self.Bomby1.colonne)
