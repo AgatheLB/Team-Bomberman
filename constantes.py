@@ -16,3 +16,6 @@ CONST_Haut=10
 CONST_Bas=11
 CONST_Droit=12
 CONST_Gauche=13
+
+#Timeur Bombes
+CONST_CountDown=3

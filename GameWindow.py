@@ -17,7 +17,7 @@ class GameWindow:
         self.ImageWindow.place(x=0,y=0)
         self.ImageWindow.pack()
 
-        self.matrix=Matrix()
+        self.matrix=Matrix.Matrix()
         self.matrix.CreateRandomMatrice()
         self.matrix.CreateRandomPosition1()
         self.matrix.CreateRandomPosition2()
