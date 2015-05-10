@@ -2,6 +2,7 @@
 from Tkinter import*
 from Matrix import*
 from Man import*
+from Bombes import*
 from constantes import*
 import os
 import pygame.mixer
@@ -22,7 +23,6 @@ class GameWindow:
         self.matrix.CreateRandomPosition2()
 
 
-
         self.ImageBloc = PhotoImage(file=os.getcwd()+"\Images\Wall.gif")
         self.ImageVide = PhotoImage(file=os.getcwd()+"\Images\Vide.gif")
         self.ImageBomby1=PhotoImage(file=os.getcwd()+"\Images\BombyB.gif")
@@ -40,23 +40,24 @@ class GameWindow:
         self.window.bind("<KeyPress-q>",self.Bomby1Left)
         self.window.bind("<KeyPress-s>",self.Bomby1Down)
         self.window.bind("<KeyPress-d>",self.Bomby1Right)
-#        self.window.bind("<KeyPress-r>",self.Bomby1SetBombe)
+        self.window.bind("<KeyPress-r>",self.Bomby1SetBombe)
         self.window.bind("<KeyPress-Up>",self.Bomby2Up)
         self.window.bind("<KeyPress-Left>",self.Bomby2Left)
         self.window.bind("<KeyPress-Down>",self.Bomby2Down)
         self.window.bind("<KeyPress-Right>",self.Bomby2Right)
-#        self.window.bind("<KeyPress-0>",self.Bomby2SetBombe)
+        self.window.bind("<KeyPress-0>",self.Bomby2SetBombe)
         self.window.bind("<KeyPress-Escape>",self.QuitterByESC)
         self.window.bind("<KeyPress-F5>",self.ReinitialiserByF5)
 
-        reinitialiser=Button(self.window, text="REINITIALISER",width=20,command=self.Reinitialiser)
-        reinitialiser.place(x=650,y=0)
+        reinitialiser=Button(self.window, text="REINITIALISER",bg="white",fg="black",width=20,command=self.Reinitialiser)
+        reinitialiser.place(x=0,y=0)
 
         pygame.mixer.init()
         pygame.mixer.music.load("music1.ogg")
         pygame.mixer.music.play()
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.fadeout(300)
+        pygame.mixer.music.play(-1,0.0)
         self.window.protocol("WM_DELETE_WINDOW",self.Quitter)
 
 
@@ -64,10 +65,8 @@ class GameWindow:
         self.matrix.Bomby1Up()
         self.PrintImages()
     def Bomby1Left(self,event):
-        print "enter Bomby1Left"
         self.matrix.Bomby1Left()
         self.PrintImages()
-        print "going out Bomby1Left"
     def Bomby1Down(self,event):
         self.matrix.Bomby1Down()
         self.PrintImages()
@@ -86,12 +85,13 @@ class GameWindow:
     def Bomby2Right(self,event):
         self.matrix.Bomby2Right()
         self.PrintImages()
+
     def Bomby1SetBombe(self,event):
-        self.matrix.Bomby1.SetBombe()
+        self.matrix.SetBombes(self.matrix.Bomby1)
 #        self.Countdown()
         self.PrintImages()
-    def Bomby2SelBombe(self,event):
-        self.matrix.Bomby2.SetBombe()
+    def Bomby2SetBombe(self,event):
+        self.matrix.SetBombes(self.matrix.Bomby2)
 #        self.Countdown()
         self.PrintImages()
 
@@ -99,13 +99,11 @@ class GameWindow:
         for l in range(CONST_NbLignes) :
             for c in range (CONST_NbColonnes):
                 case = self.matrix.grid[l][c]
-
                 if case == 6 :
                     self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageBombe,anchor="nw")
                 if case == 1 :
                     self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageBloc,anchor="nw")
                 if case == 0 :
-#                    pos=self.CalculPositionCase(l,c)
                     self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageVide,anchor="nw")
         #Affichage Bomby1:
         posBomby1=self.matrix.Bomby1.GetPosition()
@@ -128,8 +126,6 @@ class GameWindow:
         if self.matrix.Bomby2.sens==CONST_Gauche:
             self.ImageWindow.create_image(self.CalculPositionCaseX(posBomby2[1]),self.CalculPositionCaseY(posBomby2[0]),image=self.ImageBomby2Left,anchor="nw")
 
-
-
     def CalculPositionCase(self,ligne,colonne):
         x=colonne*CONST_ImageSizeInPixels
         y=ligne*CONST_ImageSizeInPixels
@@ -146,7 +142,6 @@ class GameWindow:
     def Reinitialiser(self):
         self.matrix.Reinitialisation()
         self.PrintImages()
-        print "Reinitialisation"
 
     def ReinitialiserByF5(self,event):
         self.Reinitialiser()
@@ -155,7 +150,6 @@ class GameWindow:
         self.window.mainloop()
 
     def Quitter(self):
-        print "Quitter"
         self.Destroy()
 
     def QuitterByESC(self,event):

@@ -31,6 +31,7 @@ pygame.mixer.music.load("music.ogg")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.fadeout(300)
+pygame.mixer.music.play(-1,0.0)
 
 jouer=Button(fenetre, text="JOUER",bg="black",fg="white",width=20,command=Jouer)
 jouer.place(x=360,y=340)
