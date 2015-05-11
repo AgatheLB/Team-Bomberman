@@ -4,12 +4,14 @@ import random
 import constantes
 from Man import*
 from Tkinter import*
+from GameWindow import*
 import os
 
 
 class Matrix:
-    def __init__(self):
+    def __init__(self,gamewindow):
         self.grid=self.CreateMatrice(constantes.CONST_NbLignes,constantes.CONST_NbColonnes)
+        self.gamewindow=gamewindow
 
     def CreateMatrice(self,ligne,colonne):
      return [[1 for q in range(0,ligne)] for p in range(0,colonne)]
@@ -123,7 +125,12 @@ class Matrix:
 
         if self.IsEmptyCase(targetLigne,targetColonne):
             self.grid[targetLigne][targetColonne]=6
+            bombe=Bombe(targetLigne,targetColonne,self)
 
+
+    def DeleteBombe(self,ligne,colonne):
+        self.grid[ligne][colonne]=0
+        self.gamewindow.PrintImages()
 
 
 if __name__ == "__main__":
