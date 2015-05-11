@@ -1,4 +1,4 @@
-﻿import pygame
+﻿#import pygame
 
 class MatrixObjects:
     def __init__(self,ligne,colonne):
@@ -15,3 +15,4 @@ if __name__ == "__main__":
     M1=MatrixObjects(1,2)
     print M1.ligne
     print M1.colonne
+    print M1.GetPosition()

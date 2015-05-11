@@ -23,7 +23,7 @@ fenetre.title("BOMBERMAN ~ Page d'Accueil")
 fenetre.geometry("960x768")
 fenetre.protocol("WM_DELETE_WINDOW",Quitter)
 
-img = PhotoImage(file=os.getcwd()+"\Images\pagedaccueil2.gif")
+img = PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"pagedaccueil2.gif")
 bg = Label(fenetre, image=img).pack(side="left")
 
 pygame.mixer.init()

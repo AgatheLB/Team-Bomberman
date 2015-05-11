@@ -1,7 +1,5 @@
 ﻿from Tkinter import*
 from MatrixObjects import *
-from Matrix import*
-from GameWindow import*
 
 
 class Man(MatrixObjects):
@@ -19,11 +17,15 @@ class Man(MatrixObjects):
 
 
 if __name__ == "__main__":
+    
+    from constantes import *
+    import os
+
     M1=Man(1,2,CONST_Haut)
     print M1.ligne
     print M1.colonne
     fenetre=Tk()
-    M1.SetImages(os.getcwd()+"\Images\BombyB.gif",os.getcwd()+"\Images\BombyBackB.gif",os.getcwd()+"\Images\BombyRightB.gif",os.getcwd()+"\Images\BombyLeftB.gif")
+    M1.SetImages(os.getcwd()+CONST_ImageDirectory+"BombyB.gif",os.getcwd()+CONST_ImageDirectory+"BombyBackB.gif",os.getcwd()+CONST_ImageDirectory+"BombyRightB.gif",os.getcwd()+CONST_ImageDirectory+"BombyLeftB.gif")
     print M1.ImageUp
     print M1.ImageDown
     print M1.ImageRight

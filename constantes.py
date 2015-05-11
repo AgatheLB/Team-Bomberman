@@ -1,4 +1,6 @@
-﻿#Valeurs du dimensionnement de la grille
+﻿import sys
+
+#Valeurs du dimensionnement de la grille
 CONST_NbLignes=10+2
 CONST_NbColonnes=10+2
 CONST_NbBlocsParLigne=3
@@ -19,3 +21,10 @@ CONST_Gauche=13
 
 #Timeur Bombes
 CONST_CountDown=3
+
+#Répertoire des Images
+if sys.platform.startswith('win32'):
+    CONST_ImageDirectory="\\Images\\" ## for windows developper
+elif sys.platform.startswith('linux'):
+    CONST_ImageDirectory="/Images/"  ## for linux developper
+
