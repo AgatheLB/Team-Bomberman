@@ -55,7 +55,6 @@ class Matrix:
         for c in range(CONST_NbColonnes):
             for l in range (CONST_NbLignes):
                 if self.grid[l][c]==CONST_VideValue :
-#                    self.grid[l][c]=CONST_Perso1
                     self.Bomby1=Man(l,c,CONST_Bas)
                     self.Bomby1.SetImages(os.getcwd()+CONST_ImageDirectory+"BombyB.gif",os.getcwd()+CONST_ImageDirectory+"BombyBackB.gif",os.getcwd()+CONST_ImageDirectory+"BombyRightB.gif",os.getcwd()+CONST_ImageDirectory+"BombyLeftB.gif")
                     return
@@ -64,7 +63,6 @@ class Matrix:
         for c in range(CONST_NbColonnes-1,0,-1):
             for l in range (CONST_NbLignes-1,0,-1):
                 if self.GetValue(l, c)==CONST_VideValue :
-#                    self.grid[l][c]=CONST_Perso2
                     self.Bomby2=Man(l,c,CONST_Bas)
                     self.Bomby2.SetImages(os.getcwd()+CONST_ImageDirectory+"BombyR.gif",os.getcwd()+CONST_ImageDirectory+"BombyBackR.gif",os.getcwd()+CONST_ImageDirectory+"BombyRightR.gif",os.getcwd()+CONST_ImageDirectory+"BombyLeftR.gif")
                     return
@@ -158,13 +156,13 @@ class Matrix:
 
 
     def BombeExplodeAt(self,ligne,colonne):
-        
+
         #ici, il faut placer :
         # - l'affichage de l'explosion sur plusieurs cases
         # - la vérification qu'un Bomberman aurait été tué
         # - le retour à l'affichage normal
         # la fin du jeu si un Bomberman est mort --> Réinitialiser ??
-        
+
         self.grid[ligne][colonne]=CONST_VideValue
         self.PrintImages()
 
@@ -213,9 +211,9 @@ class Matrix:
         return y
 
 if __name__ == "__main__":
-    
+
     from GameWindow import*
-    
+
     root=Tk()
     gw = GameWindow()
     M1=gw.matrix
@@ -237,5 +235,4 @@ if __name__ == "__main__":
     M1.SetBombe(M1.Bomby1)
     time.sleep(5)
     M1.SetBombe(M1.Bomby2)
-    
-    
+
