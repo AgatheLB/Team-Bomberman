@@ -17,7 +17,7 @@ class Man(MatrixObjects):
 
 
 if __name__ == "__main__":
-    
+
     from constantes import *
     import os
 
@@ -30,3 +30,4 @@ if __name__ == "__main__":
     print M1.ImageDown
     print M1.ImageRight
     print M1.ImageLeft
+

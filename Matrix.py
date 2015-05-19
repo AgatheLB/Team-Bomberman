@@ -24,6 +24,13 @@ class Matrix:
         self.ImageBomby2Right=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"BombyRightR.gif")
         self.ImageBomby2Back=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"BombyBackR.gif")
         self.ImageBombe=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"Bombe.gif")
+        self.ImageExplosionMilieu=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"explosionmilieu.gif")
+        self.ImageExplosionHorizontal=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"explosionhorizontal.gif")
+        self.ImageExplosionVertical=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"explosionvertical.gif")
+        self.ImageExplosionFinDroit=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"explosionfindroit.gif")
+        self.ImageExplosionFinGauche=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"explosionfingauche.gif")
+        self.ImageExplosionFinHaut=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"explosionfinhaut.gif")
+        self.ImageExplosionFinBas=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"explosionfinbas.gif")
         self.CreateRandomMatrice()
         self.CreateRandomPosition1()
         self.CreateRandomPosition2()
@@ -34,7 +41,10 @@ class Matrix:
      return [[1 for q in range(0,ligne)] for p in range(0,colonne)]
 
     def GetValue(self,ligne,colonne):
-     return self.grid[ligne][colonne]
+        if ligne>=0 and ligne<=CONST_NbLignes:
+            if colonne>=0 and colonne<=CONST_NbColonnes:
+                 return self.grid[ligne][colonne]
+        return CONST_VideAbsolu
 
     def SetValue (self,ligne,colonne,value):
         self.grid[ligne][colonne]=value
@@ -76,7 +86,7 @@ class Matrix:
 
 
     def IsEmptyCase (self,ligne,colonne):
-        if self.GetValue(ligne, colonne)==0 :
+        if self.GetValue(ligne,colonne)==0 :
             posBomby1=self.Bomby1.GetPosition()
             posBomby2=self.Bomby2.GetPosition()
             if posBomby1[0]!=ligne or posBomby1[1]!=colonne:
@@ -163,7 +173,48 @@ class Matrix:
         # - le retour à l'affichage normal
         # la fin du jeu si un Bomberman est mort --> Réinitialiser ??
 
-        self.grid[ligne][colonne]=CONST_VideValue
+        self.grid[ligne][colonne]=CONST_ExplosionMilieu
+        if self.IsEmptyCase(ligne,colonne-1):
+            self.grid[ligne][colonne-1]=CONST_ExplosionHorizontal
+            if self.IsEmptyCase(ligne,colonne-2):
+                self.grid[ligne][colonne-2]=CONST_ExplosionFinGauche
+        if self.IsEmptyCase(ligne,colonne+1):
+            self.grid[ligne][colonne+1]=CONST_ExplosionHorizontal
+            if self.IsEmptyCase(ligne,colonne+2):
+                self.grid[ligne][colonne+2]=CONST_ExplosionFinDroit
+        if self.IsEmptyCase(ligne-1,colonne):
+            self.grid[ligne-1][colonne]=CONST_ExplosionVertical
+            if self.IsEmptyCase(ligne-2,colonne):
+                self.grid[ligne-2][colonne]=CONST_ExplosionFinHaut
+        if self.IsEmptyCase(ligne+1,colonne):
+            self.grid[ligne+1][colonne]=CONST_ExplosionVertical
+            if self.IsEmptyCase(ligne+2,colonne):
+                self.grid[ligne+2][colonne]=CONST_ExplosionFinBas
+
+        self.PrintImages()
+        explosion=Explosion(ligne,colonne,self)
+
+
+    def EndOfExplosion(self,ligne,colonne):
+        if self.GetValue(ligne,colonne) in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne][colonne]=CONST_VideValue
+        if self.GetValue(ligne,colonne-1)in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne][colonne-1]=CONST_VideValue
+        if self.GetValue(ligne,colonne+1)in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne][colonne+1]=CONST_VideValue
+        if self.GetValue(ligne-1,colonne)in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne-1][colonne]=CONST_VideValue
+        if self.GetValue(ligne+1,colonne)in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne+1][colonne]=CONST_VideValue
+        if self.GetValue(ligne-2,colonne)in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne-2][colonne]=CONST_VideValue
+        if self.GetValue(ligne+2,colonne)in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne+2][colonne]=CONST_VideValue
+        if self.GetValue(ligne,colonne-2)in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne][colonne-2]=CONST_VideValue
+        if self.GetValue(ligne,colonne+2)in (CONST_ExplosionMilieu,CONST_ExplosionVertical,CONST_ExplosionHorizontal,CONST_ExplosionFinHaut,CONST_ExplosionFinBas,CONST_ExplosionFinGauche,CONST_ExplosionFinDroit):
+            self.grid[ligne][colonne+2]=CONST_VideValue
+
         self.PrintImages()
 
     def PrintImages (self):
@@ -176,6 +227,21 @@ class Matrix:
                     self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageBloc,anchor="nw")
                 if case == CONST_VideValue :
                     self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageVide,anchor="nw")
+                if case == CONST_ExplosionMilieu :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageExplosionMilieu,anchor="nw")
+                if case == CONST_ExplosionHorizontal :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageExplosionHorizontal,anchor="nw")
+                if case == CONST_ExplosionVertical :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageExplosionVertical,anchor="nw")
+                if case == CONST_ExplosionFinHaut :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageExplosionFinHaut,anchor="nw")
+                if case == CONST_ExplosionFinBas :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageExplosionFinBas,anchor="nw")
+                if case == CONST_ExplosionFinGauche :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageExplosionFinGauche,anchor="nw")
+                if case == CONST_ExplosionFinDroit :
+                    self.ImageWindow.create_image(self.CalculPositionCaseX(c),self.CalculPositionCaseY(l),image=self.ImageExplosionFinDroit,anchor="nw")
+
         #Affichage Bomby1:
         posBomby1=self.Bomby1.GetPosition()
         if self.Bomby1.sens==CONST_Bas:
@@ -235,4 +301,5 @@ if __name__ == "__main__":
     M1.SetBombe(M1.Bomby1)
     time.sleep(5)
     M1.SetBombe(M1.Bomby2)
+
 

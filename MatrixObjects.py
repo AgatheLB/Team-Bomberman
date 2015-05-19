@@ -16,3 +16,4 @@ if __name__ == "__main__":
     print M1.ligne
     print M1.colonne
     print M1.GetPosition()
+
