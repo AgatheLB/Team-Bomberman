@@ -6,13 +6,15 @@ import os
 from Tkinter import*
 from constantes import*
 from Man import*
+from GameWindow import*
 from Bombes import*
 
 
 class Matrix:
-    def __init__(self, imageWindow):
+    def __init__(self, gamewindow):
         self.grid=self.CreateMatrice(CONST_NbLignes,CONST_NbColonnes)
-        self.ImageWindow=imageWindow
+        self.ImageWindow=gamewindow.ImageWindow
+        self.gamewindow=gamewindow
         self.ImageBloc = PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"Wall.gif")
         self.ImageVide = PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"Vide.gif")
         self.ImageBomby1=PhotoImage(file=os.getcwd()+CONST_ImageDirectory+"BombyB.gif")
@@ -41,8 +43,8 @@ class Matrix:
      return [[1 for q in range(0,ligne)] for p in range(0,colonne)]
 
     def GetValue(self,ligne,colonne):
-        if ligne>=0 and ligne<=CONST_NbLignes:
-            if colonne>=0 and colonne<=CONST_NbColonnes:
+        if ligne>=0 and ligne<CONST_NbLignes:
+            if colonne>=0 and colonne<CONST_NbColonnes:
                  return self.grid[ligne][colonne]
         return CONST_VideAbsolu
 
@@ -93,6 +95,15 @@ class Matrix:
                 if posBomby2[0]!=ligne or posBomby2[1]!=colonne:
                     return True
         return False
+
+    def IsBombyHere(self,ligne,colonne,man):
+        if man.ligne==ligne :
+            if abs(man.ligne-ligne)>2:
+                return False
+        if man.colonne==colonne:
+            if abs(man.colonne-colonne)>2:
+                return False
+        return True
 
     def Bomby1Up(self):
         if self.IsEmptyCase(self.Bomby1.ligne-1,self.Bomby1.colonne):
@@ -190,7 +201,6 @@ class Matrix:
             self.grid[ligne+1][colonne]=CONST_ExplosionVertical
             if self.IsEmptyCase(ligne+2,colonne):
                 self.grid[ligne+2][colonne]=CONST_ExplosionFinBas
-
         self.PrintImages()
         explosion=Explosion(ligne,colonne,self)
 
@@ -216,6 +226,8 @@ class Matrix:
             self.grid[ligne][colonne+2]=CONST_VideValue
 
         self.PrintImages()
+#        if self.IsBombyHere(ligne,colonne,self.Bomby1) or self.IsBombyHere(ligne,colonne,self.Bomby2) :
+#            self.gamewindow.EndOfGame()
 
     def PrintImages (self):
         for l in range(CONST_NbLignes) :

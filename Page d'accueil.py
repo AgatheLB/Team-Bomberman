@@ -4,10 +4,6 @@ from GameWindow import*
 import pygame.mixer
 import os
 
-from Tkinter import*
-import tkFont
-from GameWindow import*
-import pygame.mixer
 
 def Quitter():
     pygame.mixer.music.stop()

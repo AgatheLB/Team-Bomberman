@@ -4,6 +4,7 @@ from Matrix import*
 from Man import*
 from Bombes import*
 from constantes import*
+from GameOver import*
 import os
 import pygame.mixer
 
@@ -17,7 +18,7 @@ class GameWindow:
         self.ImageWindow.place(x=0,y=0)
         self.ImageWindow.pack()
 
-        self.matrix=Matrix.Matrix(self.ImageWindow)
+        self.matrix=Matrix.Matrix(self)
 
         self.window.bind("<KeyPress-z>",self.Bomby1Up)
         self.window.bind("<KeyPress-q>",self.Bomby1Left)
@@ -84,6 +85,10 @@ class GameWindow:
     def Destroy(self):
         pygame.mixer.music.stop()
         self.window.destroy()
+
+    def EndOfGame (self):
+        self.Destroy()
+        GameOver().Mainloop()
 
 
 if __name__ == "__main__":
