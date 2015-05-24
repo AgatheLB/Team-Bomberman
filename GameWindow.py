@@ -7,6 +7,7 @@ from constantes import*
 from GameOver import*
 import os
 import pygame.mixer
+import threading
 
 
 class GameWindow:
@@ -32,10 +33,12 @@ class GameWindow:
         self.window.bind("<KeyPress-0>",self.Bomby2SetBombe)
         self.window.bind("<KeyPress-Escape>",self.QuitterByESC)
         self.window.bind("<KeyPress-F5>",self.ReinitialiserByF5)
+        self.window.bind(CONST_EnfOfGameEvent, self.EndOfGame)
 
         reinitialiser=Button(self.window, text="REINITIALISER",bg="white",fg="black",width=20,command=self.Reinitialiser)
         reinitialiser.place(x=0,y=0)
-
+        self.gameOver=False
+        
         pygame.mixer.init()
         pygame.mixer.music.load("music1.ogg")
         pygame.mixer.music.play()
@@ -82,14 +85,13 @@ class GameWindow:
     def QuitterByESC(self,event):
         self.Quitter()
 
+    def EndOfGame(self, event):
+        self.gameOver=True
+        self.Destroy()
+
     def Destroy(self):
         pygame.mixer.music.stop()
         self.window.destroy()
-
-    def EndOfGame (self):
-        self.Destroy()
-        GameOver().Mainloop()
-
 
 if __name__ == "__main__":
     W1=GameWindow()

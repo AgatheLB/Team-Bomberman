@@ -8,6 +8,7 @@ from constantes import*
 from Man import*
 from GameWindow import*
 from Bombes import*
+import threading
 
 
 class Matrix:
@@ -68,7 +69,7 @@ class Matrix:
             for l in range (CONST_NbLignes):
                 if self.grid[l][c]==CONST_VideValue :
                     self.Bomby1=Man(l,c,CONST_Bas)
-                    self.Bomby1.SetImages(os.getcwd()+CONST_ImageDirectory+"BombyB.gif",os.getcwd()+CONST_ImageDirectory+"BombyBackB.gif",os.getcwd()+CONST_ImageDirectory+"BombyRightB.gif",os.getcwd()+CONST_ImageDirectory+"BombyLeftB.gif")
+                    #self.Bomby1.SetImages(os.getcwd()+CONST_ImageDirectory+"BombyB.gif",os.getcwd()+CONST_ImageDirectory+"BombyBackB.gif",os.getcwd()+CONST_ImageDirectory+"BombyRightB.gif",os.getcwd()+CONST_ImageDirectory+"BombyLeftB.gif")
                     return
 
     def CreateRandomPosition2(self):
@@ -76,7 +77,7 @@ class Matrix:
             for l in range (CONST_NbLignes-1,0,-1):
                 if self.GetValue(l, c)==CONST_VideValue :
                     self.Bomby2=Man(l,c,CONST_Bas)
-                    self.Bomby2.SetImages(os.getcwd()+CONST_ImageDirectory+"BombyR.gif",os.getcwd()+CONST_ImageDirectory+"BombyBackR.gif",os.getcwd()+CONST_ImageDirectory+"BombyRightR.gif",os.getcwd()+CONST_ImageDirectory+"BombyLeftR.gif")
+                    #self.Bomby2.SetImages(os.getcwd()+CONST_ImageDirectory+"BombyR.gif",os.getcwd()+CONST_ImageDirectory+"BombyBackR.gif",os.getcwd()+CONST_ImageDirectory+"BombyRightR.gif",os.getcwd()+CONST_ImageDirectory+"BombyLeftR.gif")
                     return
 
     def Reinitialisation(self):
@@ -98,63 +99,63 @@ class Matrix:
 
     def IsBombyHere(self,ligne,colonne,man):
         if man.ligne==ligne :
-            if abs(man.ligne-ligne)>2:
-                return False
+            if abs(man.ligne-ligne)<=2:
+                return True
         if man.colonne==colonne:
-            if abs(man.colonne-colonne)>2:
-                return False
-        return True
+            if abs(man.colonne-colonne)<=2:
+                return True
+        return False
 
     def Bomby1Up(self):
         if self.IsEmptyCase(self.Bomby1.ligne-1,self.Bomby1.colonne):
             self.Bomby1.SetPosition(self.Bomby1.ligne-1,self.Bomby1.colonne)
             self.Bomby1.sens=CONST_Haut
-        self.PrintImages()
+            self.PrintImages()
 
 
     def Bomby1Left(self):
         if self.IsEmptyCase(self.Bomby1.ligne,self.Bomby1.colonne-1):
             self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne-1)
             self.Bomby1.sens=CONST_Gauche
-        self.PrintImages()
+            self.PrintImages()
 
     def Bomby1Down(self):
         if self.IsEmptyCase(self.Bomby1.ligne+1,self.Bomby1.colonne):
             self.Bomby1.SetPosition(self.Bomby1.ligne+1,self.Bomby1.colonne)
             self.Bomby1.sens=CONST_Bas
-        self.PrintImages()
+            self.PrintImages()
 
     def Bomby1Right(self):
         if self.IsEmptyCase(self.Bomby1.ligne,self.Bomby1.colonne+1):
             self.Bomby1.SetPosition(self.Bomby1.ligne,self.Bomby1.colonne+1)
             self.Bomby1.sens=CONST_Droit
-        self.PrintImages()
+            self.PrintImages()
 
 
     def Bomby2Up(self):
         if self.IsEmptyCase(self.Bomby2.ligne-1,self.Bomby2.colonne):
             self.Bomby2.SetPosition(self.Bomby2.ligne-1,self.Bomby2.colonne)
             self.Bomby2.sens=CONST_Haut
-        self.PrintImages()
+            self.PrintImages()
 
 
     def Bomby2Left(self):
         if self.IsEmptyCase(self.Bomby2.ligne,self.Bomby2.colonne-1):
             self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne-1)
             self.Bomby2.sens=CONST_Gauche
-        self.PrintImages()
+            self.PrintImages()
 
     def Bomby2Down(self):
         if self.IsEmptyCase(self.Bomby2.ligne+1,self.Bomby2.colonne):
             self.Bomby2.SetPosition(self.Bomby2.ligne+1,self.Bomby2.colonne)
             self.Bomby2.sens=CONST_Bas
-        self.PrintImages()
+            self.PrintImages()
 
     def Bomby2Right(self):
         if self.IsEmptyCase(self.Bomby2.ligne,self.Bomby2.colonne+1):
             self.Bomby2.SetPosition(self.Bomby2.ligne,self.Bomby2.colonne+1)
             self.Bomby2.sens=CONST_Droit
-        self.PrintImages()
+            self.PrintImages()
 
     def SetBombe(self,aBomby):
         if aBomby.sens==CONST_Gauche:
@@ -172,17 +173,11 @@ class Matrix:
 
         if self.IsEmptyCase(targetLigne,targetColonne):
             self.grid[targetLigne][targetColonne]=CONST_Bombe
+            self.PrintImages()
             bombe=Bombe(targetLigne,targetColonne,self)
-        self.PrintImages()
 
 
     def BombeExplodeAt(self,ligne,colonne):
-
-        #ici, il faut placer :
-        # - l'affichage de l'explosion sur plusieurs cases
-        # - la vérification qu'un Bomberman aurait été tué
-        # - le retour à l'affichage normal
-        # la fin du jeu si un Bomberman est mort --> Réinitialiser ??
 
         self.grid[ligne][colonne]=CONST_ExplosionMilieu
         if self.IsEmptyCase(ligne,colonne-1):
@@ -201,6 +196,7 @@ class Matrix:
             self.grid[ligne+1][colonne]=CONST_ExplosionVertical
             if self.IsEmptyCase(ligne+2,colonne):
                 self.grid[ligne+2][colonne]=CONST_ExplosionFinBas
+
         self.PrintImages()
         explosion=Explosion(ligne,colonne,self)
 
@@ -226,10 +222,11 @@ class Matrix:
             self.grid[ligne][colonne+2]=CONST_VideValue
 
         self.PrintImages()
-#        if self.IsBombyHere(ligne,colonne,self.Bomby1) or self.IsBombyHere(ligne,colonne,self.Bomby2) :
-#            self.gamewindow.EndOfGame()
+        if self.IsBombyHere(ligne,colonne,self.Bomby1) or self.IsBombyHere(ligne,colonne,self.Bomby2) :
+            self.gamewindow.window.event_generate(CONST_EnfOfGameEvent)
 
     def PrintImages (self):
+        
         for l in range(CONST_NbLignes) :
             for c in range (CONST_NbColonnes):
                 case = self.GetValue(l, c)
@@ -275,6 +272,7 @@ class Matrix:
         if self.Bomby2.sens==CONST_Gauche:
             self.ImageWindow.create_image(self.CalculPositionCaseX(posBomby2[1]),self.CalculPositionCaseY(posBomby2[0]),image=self.ImageBomby2Left,anchor="nw")
 
+
     def CalculPositionCase(self,ligne,colonne):
         x=colonne*CONST_ImageSizeInPixels
         y=ligne*CONST_ImageSizeInPixels
@@ -288,30 +286,6 @@ class Matrix:
         y=ligne*CONST_ImageSizeInPixels
         return y
 
-if __name__ == "__main__":
 
-    from GameWindow import*
-
-    root=Tk()
-    gw = GameWindow()
-    M1=gw.matrix
-    print 'initialisation'
-    print M1.grid
-    print M1.GetValue(1,2)
-    M1.SetValue(1,2,1)
-    print M1.GetValue(1,2)
-    print 'initialisation blocs et cases vides'
-    M1.CreateRandomMatrice()
-    print M1.grid
-    print 'initilisation personnage'
-    M1.CreateRandomPosition1()
-    M1.CreateRandomPosition2()
-    print M1.grid
-    print (__file__)
-    print os.path.join(os.getcwd(),__file__)
-    print os.getcwd()
-    M1.SetBombe(M1.Bomby1)
-    time.sleep(5)
-    M1.SetBombe(M1.Bomby2)
 
 

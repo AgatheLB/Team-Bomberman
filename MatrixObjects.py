@@ -11,9 +11,4 @@ class MatrixObjects:
     def GetPosition(self):
         return self.ligne,self.colonne
 
-if __name__ == "__main__":
-    M1=MatrixObjects(1,2)
-    print M1.ligne
-    print M1.colonne
-    print M1.GetPosition()
 

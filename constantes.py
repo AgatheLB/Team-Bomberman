@@ -30,6 +30,7 @@ CONST_Gauche=13
 #Timeur Bombes
 CONST_CountDownBombes=3
 CONST_CountDownExplosion=2
+CONST_EnfOfGameEvent="<Control-KeyPress-F2>"
 
 #Répertoire des Images
 if sys.platform.startswith('win32'):
